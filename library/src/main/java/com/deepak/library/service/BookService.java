@@ -10,4 +10,10 @@ public interface BookService {
 
 	public List<Book> getAllBooks();
 
+	public Book getBook(long id);
+
+	public Book updateBook(Book book);
+
+	public String deleteBook(long id);
+
 }

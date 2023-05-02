@@ -26,4 +26,28 @@ public class LibraryServiceImpl implements BookService {
 		return libraryRepository.getAllBooks();
 	}
 
+	@Override
+	public Book getBook(long id) {
+		return libraryRepository.getBook(id);
+	}
+
+	@Override
+	public String deleteBook(long id) {
+
+		Book book = getBook(id);
+		if (book != null) {
+			libraryRepository.deleteBook(id);
+			return "deleted sucessfully";
+		} else {
+			return "no book found with this id=" + id;
+		}
+
+	}
+
+	@Override
+	public Book updateBook(Book book) {
+		return libraryRepository.updateBook(book);
+
+	}
+
 }

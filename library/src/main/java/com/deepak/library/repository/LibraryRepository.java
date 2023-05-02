@@ -48,4 +48,50 @@ public class LibraryRepository {
 		return Collections.EMPTY_LIST;
 
 	}
+
+	public Book getBook(long id) {
+
+		try {
+			Session session = sessionFactory.openSession();
+			String query = "from Book where altkey=:id";
+			Query query2 = session.createQuery(query);
+			query2.setParameter("id", id);
+			Book books = (Book) query2.getSingleResult();
+
+			return books;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+
+	}
+
+	public Book updateBook(Book book) {
+		try {
+			Session session = sessionFactory.openSession();
+			Transaction transaction = session.beginTransaction();
+			Book merge = (Book) session.merge(book);
+			transaction.commit();
+			return merge;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return null;
+
+	}
+
+	public void deleteBook(long id) {
+		try {
+			Session session = sessionFactory.openSession();
+			Transaction transaction = session.beginTransaction();
+			String query = "delete from Book where altkey=:id";
+			Query query2 = session.createQuery(query);
+			query2.setParameter("id", id);
+			int update = query2.executeUpdate();
+			transaction.commit();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
